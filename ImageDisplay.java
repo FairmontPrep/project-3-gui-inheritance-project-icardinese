@@ -20,6 +20,7 @@ public class ImageDisplay extends JFrame {
         mousePanel = new MouseControl();
         add(mousePanel, BorderLayout.CENTER);
 
+
         buttonPanel = new buttonPanel(mousePanel);
         add(buttonPanel, BorderLayout.SOUTH);
 

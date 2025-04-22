@@ -4,49 +4,32 @@ import java.awt.image.BufferedImage;
 
 public class MouseControl extends JPanel {
 
-    private ImageLoad imageLoad;
-    private boolean useAltBase = false;
-    private boolean useAltScrollwheel = false;
-    private boolean useAltButtons = false;
-    private boolean useAltLogo = false;
+    private scrollwheel mouse;
 
-    private BufferedImage base;
-    private BufferedImage altBase;
-    private BufferedImage scrollWheel;
-    private BufferedImage altScrollWheel;
-    private BufferedImage buttons;
-    private BufferedImage altButtons;
-    private BufferedImage logo;
-    private BufferedImage altLogo;
-    
+    private String message;
+    private JLabel loadMessage;  
+
     public MouseControl() {
         setPreferredSize(new Dimension(600,600));
-        imageLoad = new ImageLoad();
-
-        base = imageLoad.getBase();
-        altBase = imageLoad.getAltBase();
-        scrollWheel = imageLoad.getScrollWheel();
-        altScrollWheel = imageLoad.getAltScrollWheel();
-        buttons = imageLoad.getButtons();
-        altButtons = imageLoad.getAltButtons();
-        logo = imageLoad.getLogo();
-        altLogo = imageLoad.getAltLogo();
+        mouse = new scrollwheel();
         setLayout(new BorderLayout());
+        message = mouse.getMessage();
+        loadMessage = new JLabel(message);
     }
     
     public void swapLayer(String layerName) {
         switch (layerName) {
             case "Base":
-                useAltBase = !useAltBase;
+                mouse.swapBase();
                 break;
             case "Scroll Wheel":
-                useAltScrollwheel = !useAltScrollwheel;
+                mouse.swapScrollWheel();
                 break;
             case "Buttons":
-                useAltButtons = !useAltButtons;
+                mouse.swapButtons();
                 break;
             case "Logo":    
-                useAltLogo = !useAltLogo;
+                mouse.swapLogo();
                 break;
             default:
                 System.out.println("Invalid layer name");
@@ -58,10 +41,15 @@ public class MouseControl extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        BufferedImage baseImage = useAltBase ? altBase : base;
-        BufferedImage scrollWheelImage = useAltScrollwheel ? altScrollWheel : scrollWheel;
-        BufferedImage buttonsImage = useAltButtons ? altButtons : buttons;
-        BufferedImage logoImage = useAltLogo ? altLogo : logo;
+        BufferedImage baseImage = mouse.getBaseImage();
+        BufferedImage scrollWheelImage = mouse.getScrollWheelImage();
+        BufferedImage buttonsImage = mouse.getButtonsImage();
+        BufferedImage logoImage = mouse.getLogoImage();
+        
+        message = mouse.getMessage();
+
+        loadMessage.setText(message);
+        add(loadMessage);
 
         drawLayer(g2d, baseImage);
         drawLayer(g2d, logoImage);
@@ -75,5 +63,9 @@ public class MouseControl extends JPanel {
             int y = (getHeight() - image.getHeight()) / 2;
             g2d.drawImage(image, x, y, this);
         }
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
