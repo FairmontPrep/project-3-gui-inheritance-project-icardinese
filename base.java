@@ -9,6 +9,12 @@ public class base {
     private String message = "white base";
 
     public base() {
+        if (Math.random() > 0.5) {
+            useAltBase = false;
+        }
+        else {
+            useAltBase = true;
+        }
         try {
             base = ImageIO.read(getClass().getResource("base.png"));
             altbase = ImageIO.read(getClass().getResource("altBase.png"));

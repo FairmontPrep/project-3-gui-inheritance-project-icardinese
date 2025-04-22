@@ -10,6 +10,12 @@ public class buttons extends base {
 
 
     public buttons() {
+        if (Math.random() > 0.5) {
+            useAltButtons = false;
+        }
+        else {
+            useAltButtons = true;
+        }
         try {
             buttons = ImageIO.read(getClass().getResource("buttons.png"));
             altbuttons = ImageIO.read(getClass().getResource("altButtons.png"));

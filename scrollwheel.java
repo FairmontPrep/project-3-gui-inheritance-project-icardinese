@@ -10,6 +10,12 @@ public class scrollwheel extends logo {
 
 
     public scrollwheel() {
+        if (Math.random() > 0.5) {
+            useAltScrollWheel = false;
+        }
+        else {
+            useAltScrollWheel = true;
+        }
         try {
             scrollWheel = ImageIO.read(getClass().getResource("scrollWheel.png"));
             altscrollWheel = ImageIO.read(getClass().getResource("altScrollWheel.png"));

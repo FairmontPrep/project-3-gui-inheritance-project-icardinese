@@ -9,6 +9,12 @@ public class logo extends buttons {
     private String message = "colorless logo";
 
     public logo() {
+        if (Math.random() > 0.5) {
+            useAltLogo = false;
+        }
+        else {
+            useAltLogo = true;
+        }
         try {
             logo = ImageIO.read(getClass().getResource("logo.png"));
             altlogo = ImageIO.read(getClass().getResource("altLogo.png"));
